@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "mako2cli"
+version = "0.1.0"
+description = "Mako Template Command-Line Tool"
+authors = ["fbagagli <francesco.bagagli@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/fbagagli/mako2cli"
+repository = "https://github.com/fbagagli/mako2cli"
+keywords = ["mako", "template", "cli"]
+
+[tool.poetry.dependencies]
+python = "^3.5"
+click = "^7.1.2"
+pyyaml = "^5.3.1"
+attrs = "^19.3.0"
+mako = "^1.1.3"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+m2cli = "mako2cli.cli:main"
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
