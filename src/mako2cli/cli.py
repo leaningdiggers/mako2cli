@@ -1,6 +1,5 @@
 import click
-from .DataLoader import DataLoader
-from .TemplateEngine import TemplateEngine
+from .Renderer import Renderer
 
 @click.command()
 @click.option('-t', '--template', 'template',
@@ -16,11 +15,5 @@ from .TemplateEngine import TemplateEngine
               help='output file',
               required=True)
 def main(template, data, output):
-    d = DataLoader.from_string(data)
-    t = TemplateEngine(template_name=template,
-                       data=d.get_data(),
-                       template_directories_list='.')
-    t.render_on_file(output)
-
-if __name__ == '__main__':
-    main()
+    r = Renderer.from_string(template, data, output)
+    r.execute()
