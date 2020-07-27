@@ -2,8 +2,9 @@ import yaml
 import attr
 from pathlib import Path
 
+
 @attr.s
-class DataLoader():
+class DataLoader:
     data_file = attr.ib(type=Path)
 
     @classmethod

@@ -10,18 +10,16 @@ class TemplateEngineException(Exception):
 
 
 @attr.s
-class TemplateEngine():
+class TemplateEngine:
     template = attr.ib(type=Template)
 
     @classmethod
-    def initialize(cls,
-                   template_filename=None,
-                   template_directories_list=['.']):
+    def initialize(cls, template_filename=None, template_directories_list=["."]):
         try:
             lookup = TemplateLookup(directories=template_directories_list)
             template = lookup.get_template(template_filename)
             return cls(template)
-        except:
+        except exceptions.MakoException:
             print(exceptions.text_error_template().render())
             raise TemplateEngineException()
 
@@ -29,7 +27,6 @@ class TemplateEngine():
         try:
             output_file = Path(output_file_name)
             output_file.write_text(self.template.render(**data))
-        except:
+        except (exceptions.MakoException, NameError):
             print(exceptions.text_error_template().render())
             raise TemplateEngineException()
-
