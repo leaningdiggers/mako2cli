@@ -1,6 +1,7 @@
-import yaml
-import attr
 from pathlib import Path
+
+import attr
+import yaml
 
 
 @attr.s

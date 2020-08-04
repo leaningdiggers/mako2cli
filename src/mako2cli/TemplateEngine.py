@@ -1,8 +1,9 @@
-import attr
 from pathlib import Path
+
+import attr
+from mako import exceptions
 from mako.lookup import TemplateLookup
 from mako.template import Template
-from mako import exceptions
 
 
 class TemplateEngineException(Exception):

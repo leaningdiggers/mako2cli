@@ -1,7 +1,9 @@
+from pathlib import Path
+
 import attr
+
 from .DataLoader import DataLoader
 from .TemplateEngine import TemplateEngine
-from pathlib import Path
 
 
 @attr.s

@@ -1,5 +1,6 @@
-import pytest
 from pathlib import Path
+
+import pytest
 
 TEMPLATE_CONTENT = "hello ${name}!"
 TEMPLATE_PATH = "/test/template.mako"

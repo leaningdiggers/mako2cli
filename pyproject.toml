@@ -36,6 +36,9 @@ source = ["mako2cli"]
 show_missing = true
 fail_under = 100
 
+[tool.isort]
+profile = "google"
+src_paths = ["src", "test", "noxfile.py"]
 
 [build-system]
 requires = ["poetry>=0.12"]

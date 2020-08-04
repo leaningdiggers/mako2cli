@@ -1,5 +1,7 @@
-import pytest
 from pathlib import Path
+
+import pytest
+
 from mako2cli import TemplateEngine
 from mako2cli import TemplateEngineException
 

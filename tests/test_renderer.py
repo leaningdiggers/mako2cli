@@ -1,5 +1,6 @@
-from mako2cli import Renderer
 from pathlib import Path
+
+from mako2cli import Renderer
 
 
 def test_init():
