@@ -10,7 +10,7 @@ repository = "https://github.com/fbagagli/mako2cli"
 keywords = ["mako", "template", "cli"]
 
 [tool.poetry.dependencies]
-python = "^3.5"
+python = "^3.6"
 click = "^7.1.2"
 pyyaml = "^5.3.1"
 attrs = "^19.3.0"
@@ -22,6 +22,14 @@ coverage = {extras = ["toml"], version = "^5.2"}
 pytest-cov = "^2.10.0"
 pytest-mock = "^3.2.0"
 pyfakefs = "^4.1.0"
+black = "^19.10b0"
+flake8 = "^3.8.3"
+flake8-bandit = "^2.1.2"
+flake8-black = "^0.2.1"
+flake8-bugbear = "^20.1.4"
+flake8-import-order = "^0.18.1"
+safety = "^1.9.0"
+isort = "^5.3.0"
 
 [tool.poetry.scripts]
 m2cli = "mako2cli.cli:main"
