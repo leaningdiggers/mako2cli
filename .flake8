@@ -1,7 +1,21 @@
 [flake8]
-select = BLK,C,E,F,I,W
-ignore = E203,W503
-max-line-length = 88
+# BLK = black
+# C = maccabe violations
+# W,E = pycodestyle
+# F = pyflakes
+# I = import order warnings
+# B,B9 = bugbear
+select = B,B9,BLK,C,E,F,I,W
+
+# ignore
+# E203 (Whitespace before ‘:')
+# W503 (Line break before binary operator)
+# E501 max line lenght, will be checked by bugbear with tolerance 10%
+ignore = E203,W503,E501
+
+max-line-length = 80
 max-complexity = 10
+
+# for import-order
 application-import-names = mako2cli,tests
 import-order-style = google

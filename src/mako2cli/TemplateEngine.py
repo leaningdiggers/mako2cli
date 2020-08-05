@@ -15,7 +15,7 @@ class TemplateEngine:
     template = attr.ib(type=Template)
 
     @classmethod
-    def initialize(cls, template_filename=None, template_directories_list=["."]):
+    def initialize(cls, template_filename=None, template_directories_list=(".")):
         try:
             lookup = TemplateLookup(directories=template_directories_list)
             template = lookup.get_template(template_filename)
