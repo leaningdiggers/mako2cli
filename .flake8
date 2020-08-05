@@ -5,13 +5,16 @@
 # F = pyflakes
 # I = import order warnings
 # B,B9 = bugbear
-select = B,B9,BLK,C,E,F,I,W
+# S = security
+select = B,B9,BLK,C,E,F,I,S,W
 
 # ignore
 # E203 (Whitespace before ‘:')
 # W503 (Line break before binary operator)
 # E501 max line lenght, will be checked by bugbear with tolerance 10%
 ignore = E203,W503,E501
+# assert ignored only for test
+per-file-ignores = tests/*:S101
 
 max-line-length = 80
 max-complexity = 10
