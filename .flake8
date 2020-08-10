@@ -1,4 +1,5 @@
 [flake8]
+# ANN = annotations
 # BLK = black
 # C = maccabe violations
 # W,E = pycodestyle
@@ -6,7 +7,7 @@
 # I = import order warnings
 # B,B9 = bugbear
 # S = security
-select = B,B9,BLK,C,E,F,I,S,W
+select = ANN,B,B9,BLK,C,E,F,I,S,W
 
 # ignore
 # E203 (Whitespace before ‘:')

@@ -28,6 +28,6 @@ from .Renderer import Renderer
     help="output file",
     required=True,
 )
-def main(template, data, output):
+def main(template: str, data: str, output: str) -> None:
     r = Renderer.from_string(template, data, output)
     r.execute()

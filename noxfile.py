@@ -1,13 +1,17 @@
 import tempfile
+from typing import Any
 
 import nox
+from nox.sessions import Session
 
-nox.options.sessions = "lint", "safety", "tests"
+nox.options.sessions = "lint", "mypy", "safety", "tests"
 
 locations = "src", "tests", "noxfile.py"
 
+package = "mako2cli"
 
-def install_with_constraints(session, *args, **kwargs):
+
+def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Any:
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
             "poetry",
@@ -21,11 +25,12 @@ def install_with_constraints(session, *args, **kwargs):
 
 
 @nox.session(python=["3.8", "3.7"])
-def lint(session):
+def lint(session: Session) -> Any:
     args = session.posargs or locations
     install_with_constraints(
         session,
         "flake8",
+        "flake8-annotations",
         "flake8-bandit",
         "flake8-black",
         "flake8-bugbear",
@@ -34,8 +39,15 @@ def lint(session):
     session.run("flake8", *args)
 
 
+@nox.session(python=["3.8", "3.7"])
+def mypy(session: Session) -> Any:
+    args = session.posargs or locations
+    install_with_constraints(session, "mypy")
+    session.run("mypy", *args)
+
+
 @nox.session(python="3.8")
-def safety(session):
+def safety(session: Session) -> Any:
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
             "poetry",
@@ -51,7 +63,7 @@ def safety(session):
 
 
 @nox.session(python=["3.8", "3.7"])
-def tests(session):
+def tests(session: Session) -> Any:
     args = session.posargs or ["--cov"]
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(
@@ -60,15 +72,23 @@ def tests(session):
     session.run("pytest", *args)
 
 
+@nox.session(python=["3.8", "3.7"])
+def typeguard(session: Session) -> Any:
+    args = session.posargs or []
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(session, "pytest", "pytest-mock", "pyfakefs", "typeguard")
+    session.run("pytest", f"--typeguard-packages={package}", *args)
+
+
 @nox.session(python="3.8")
-def black(session):
+def black(session: Session) -> Any:
     args = session.posargs or locations
     install_with_constraints(session, "black")
     session.run("black", *args)
 
 
 @nox.session(python="3.8")
-def isort(session):
+def isort(session: Session) -> Any:
     args = session.posargs or locations
     install_with_constraints(session, "isort")
     session.run("isort", *args)
