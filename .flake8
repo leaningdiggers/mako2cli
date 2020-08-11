@@ -7,7 +7,11 @@
 # I = import order warnings
 # B,B9 = bugbear
 # S = security
-select = ANN,B,B9,BLK,C,E,F,I,S,W
+# D = enable documentation lint
+select = ANN,B,B9,BLK,C,D,E,F,I,S,W
+
+# configure docstring
+docstring-convention = google
 
 # ignore
 # E203 (Whitespace before ‘:')

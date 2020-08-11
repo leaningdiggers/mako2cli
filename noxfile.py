@@ -1,3 +1,4 @@
+"""Nox sessions."""
 import tempfile
 from typing import Any
 
@@ -12,6 +13,7 @@ package = "mako2cli"
 
 
 def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Any:
+    """Install packages constrained by Poetry's lock file."""
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
             "poetry",
@@ -26,6 +28,7 @@ def install_with_constraints(session: Session, *args: str, **kwargs: Any) -> Any
 
 @nox.session(python=["3.8", "3.7"])
 def lint(session: Session) -> Any:
+    """Lint using flake8."""
     args = session.posargs or locations
     install_with_constraints(
         session,
@@ -34,6 +37,7 @@ def lint(session: Session) -> Any:
         "flake8-bandit",
         "flake8-black",
         "flake8-bugbear",
+        "flake8-docstrings",
         "flake8-import-order",
     )
     session.run("flake8", *args)
@@ -41,6 +45,7 @@ def lint(session: Session) -> Any:
 
 @nox.session(python=["3.8", "3.7"])
 def mypy(session: Session) -> Any:
+    """Type-check using mypy."""
     args = session.posargs or locations
     install_with_constraints(session, "mypy")
     session.run("mypy", *args)
@@ -48,6 +53,7 @@ def mypy(session: Session) -> Any:
 
 @nox.session(python="3.8")
 def safety(session: Session) -> Any:
+    """Scan dependencies for insecure packages."""
     with tempfile.NamedTemporaryFile() as requirements:
         session.run(
             "poetry",
@@ -64,6 +70,7 @@ def safety(session: Session) -> Any:
 
 @nox.session(python=["3.8", "3.7"])
 def tests(session: Session) -> Any:
+    """Run the test suite."""
     args = session.posargs or ["--cov"]
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(
@@ -74,6 +81,7 @@ def tests(session: Session) -> Any:
 
 @nox.session(python=["3.8", "3.7"])
 def typeguard(session: Session) -> Any:
+    """Runtime type checking using Typeguard."""
     args = session.posargs or []
     session.run("poetry", "install", "--no-dev", external=True)
     install_with_constraints(session, "pytest", "pytest-mock", "pyfakefs", "typeguard")
@@ -82,6 +90,7 @@ def typeguard(session: Session) -> Any:
 
 @nox.session(python="3.8")
 def black(session: Session) -> Any:
+    """Run black code formatter."""
     args = session.posargs or locations
     install_with_constraints(session, "black")
     session.run("black", *args)
@@ -89,6 +98,7 @@ def black(session: Session) -> Any:
 
 @nox.session(python="3.8")
 def isort(session: Session) -> Any:
+    """Run isort import formatter."""
     args = session.posargs or locations
     install_with_constraints(session, "isort")
     session.run("isort", *args)
