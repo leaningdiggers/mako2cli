@@ -1,3 +1,4 @@
+"""Template Engine module."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -10,15 +11,34 @@ from mako.template import Template
 
 
 class TemplateEngineException(Exception):
+    """Generic module exception."""
+
     pass
 
 
 @attr.s
 class TemplateEngine:
+    """Manage the template logic rendering.
+
+    Attributes:
+        template: Mako template object
+    """
+
     template = attr.ib(type=Template)
 
     @classmethod
     def initialize(cls: Type[TemplateEngine], template_filename: str) -> TemplateEngine:
+        """Factory method for class creation.
+
+        Args:
+            template_filename (str): file with template logic to render.
+
+        Returns:
+            TemplateEngine intialized object
+
+        Raises:
+            TemplateEngineException: if file contains invalid syntax.
+        """
         try:
             lookup = TemplateLookup(directories=("."))
             template = lookup.get_template(template_filename)
@@ -28,6 +48,17 @@ class TemplateEngine:
             raise TemplateEngineException()
 
     def render(self: TemplateEngine, output_file_name: str, data: Dict) -> None:
+        """Render the template.
+
+        Execute the template rendering given a data set.
+
+        Args:
+            output_file_name (str): output file rendering.
+            data (Dict): data to use for rendering.
+
+        Raises:
+            TemplateEngineException: if some error occurs during rendering.
+        """
         try:
             output_file = Path(output_file_name)
             output_file.write_text(self.template.render(**data))

@@ -1,3 +1,4 @@
+"""The mako2cli project."""
 from .DataLoader import DataLoader
 from .Renderer import Renderer
 from .TemplateEngine import TemplateEngine

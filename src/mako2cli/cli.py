@@ -1,3 +1,4 @@
+"""Command-line interface."""
 import click
 
 from .Renderer import Renderer
@@ -29,5 +30,6 @@ from .Renderer import Renderer
     required=True,
 )
 def main(template: str, data: str, output: str) -> None:
+    """The mako2cli project."""
     r = Renderer.from_string(template, data, output)
     r.execute()
