@@ -20,6 +20,22 @@ class Renderer:
         template_file (Path): file with template logic to render.
         data_file (Path): data to use for rendering
         output_file (Path): file containing the rendering output.
+
+    Example:
+
+    >>> from pathlib import Path
+    >>> import tempfile
+    >>> from mako2cli import Renderer
+    >>> temporary_dir = tempfile.mkdtemp()
+    >>> template_file = Path(temporary_dir) / "template.mako"
+    >>> template_file.write_text("hello ${name}!")
+    >>> data_file = Path(temporary_dir) / "data.yaml"
+    >>> data_file.write_text("name: world")
+    >>> output_file = Path(temporary_dir) / "output"
+    >>> r = Renderer(template_file, data_file, output_file)
+    >>> r.execute()
+    >>> bool(output_file.read_text() == "hello world!")
+    True
     """
 
     template_file = attr.ib(type=Path)
@@ -36,6 +52,9 @@ class Renderer:
             template_file (str): file with template logic to render.
             data_file (str): data to use for rendering.
             output_file (str): file containing the rendering output.
+
+        Returns:
+            Renderer class instance
         """
         return cls(Path(template_file), Path(data_file), Path(output_file))
 

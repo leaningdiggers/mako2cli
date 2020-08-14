@@ -26,6 +26,9 @@ class DataLoader:
 
         Args:
             data_file (str): path to data file as string.
+
+        Returns:
+            a DataLoader class instance.
         """
         return cls(Path(data_file))
 
@@ -40,7 +43,7 @@ class DataLoader:
             value (Path): value to validate.
 
         Raises:
-            IOError if file doesn't exist.
+            IOError: if file doesn't exist.
         """
         if not value.exists():
             raise IOError(f"{value} doesn't exist")
@@ -52,13 +55,13 @@ class DataLoader:
             data parsed as dictionary.
 
         Raises:
-            yaml.YAMLError if file is not valid YAML.
+            yaml.YAMLError: if file is not valid YAML.
 
         """
         with self.data_file.open() as fstream:
             try:
                 data = yaml.safe_load(fstream)
-            except yaml.YAMLError as exc:
-                raise exc
+            except yaml.YAMLError:
+                raise
             else:
                 return data

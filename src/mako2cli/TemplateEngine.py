@@ -45,7 +45,7 @@ class TemplateEngine:
             return cls(template)
         except exceptions.MakoException:
             print(exceptions.text_error_template().render())
-            raise TemplateEngineException()
+            raise TemplateEngineException("Error initializing TemplateEngine.")
 
     def render(self: TemplateEngine, output_file_name: str, data: Dict) -> None:
         """Render the template.
@@ -57,11 +57,14 @@ class TemplateEngine:
             data (Dict): data to use for rendering.
 
         Raises:
-            TemplateEngineException: if some error occurs during rendering.
+            TemplateEngineException: if file contains invalid syntax.
         """
         try:
             output_file = Path(output_file_name)
             output_file.write_text(self.template.render(**data))
-        except (exceptions.MakoException, NameError):
+        except exceptions.MakoException:
             print(exceptions.text_error_template().render())
-            raise TemplateEngineException()
+            raise TemplateEngineException("Syntax error.")
+        except NameError:
+            print(exceptions.text_error_template().render())
+            raise TemplateEngineException("Missing data for template.")

@@ -8,7 +8,8 @@
 # B,B9 = bugbear
 # S = security
 # D = enable documentation lint
-select = ANN,B,B9,BLK,C,D,E,F,I,S,W
+# DAR = enable darglint
+select = ANN,B,B9,BLK,C,D,DAR,E,F,I,S,W
 
 # configure docstring
 docstring-convention = google
