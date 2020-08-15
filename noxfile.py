@@ -7,7 +7,7 @@ from nox.sessions import Session
 
 nox.options.sessions = "lint", "mypy", "safety", "tests"
 
-locations = "src", "tests", "noxfile.py"
+locations = "src", "tests", "noxfile.py", "docs/conf.py"
 
 package = "mako2cli"
 
@@ -112,3 +112,11 @@ def isort(session: Session) -> Any:
     args = session.posargs or locations
     install_with_constraints(session, "isort")
     session.run("isort", *args)
+
+
+@nox.session(python="3.8")
+def docs(session: Session) -> None:
+    """Build the documentation."""
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(session, "sphinx", "sphinx-autodoc-typehints")
+    session.run("sphinx-build", "docs", "docs/_build")

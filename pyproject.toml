@@ -36,6 +36,8 @@ flake8-annotations = "^2.3.0"
 flake8-docstrings = "^1.5.0"
 darglint = "^1.5.2"
 xdoctest = "^0.13.0"
+sphinx = "^3.2.1"
+sphinx-autodoc-typehints = "^1.11.0"
 
 [tool.poetry.scripts]
 m2cli = "mako2cli.cli:main"
