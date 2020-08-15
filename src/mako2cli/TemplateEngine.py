@@ -6,7 +6,6 @@ from typing import Dict, Type
 
 import attr
 from mako import exceptions
-from mako.lookup import TemplateLookup
 from mako.template import Template
 
 
@@ -40,12 +39,13 @@ class TemplateEngine:
             TemplateEngineException: if file contains invalid syntax.
         """
         try:
-            lookup = TemplateLookup(directories=("."))
-            template = lookup.get_template(template_filename)
+            template = Template(filename=template_filename)
             return cls(template)
         except exceptions.MakoException:
             print(exceptions.text_error_template().render())
             raise TemplateEngineException("Error initializing TemplateEngine.")
+        except OSError:
+            raise TemplateEngineException(f"File not found {template_filename}.")
 
     def render(self: TemplateEngine, output_file_name: str, data: Dict) -> None:
         """Render the template.
@@ -62,9 +62,5 @@ class TemplateEngine:
         try:
             output_file = Path(output_file_name)
             output_file.write_text(self.template.render(**data))
-        except exceptions.MakoException:
-            print(exceptions.text_error_template().render())
-            raise TemplateEngineException("Syntax error.")
         except NameError:
-            print(exceptions.text_error_template().render())
             raise TemplateEngineException("Missing data for template.")
