@@ -1,9 +1,8 @@
 """Test cases for the command line module."""
-from unittest.mock import Mock
+from pathlib import Path
 
 from click.testing import CliRunner
 import pytest
-from pytest_mock import MockFixture
 
 from mako2cli import cli
 
@@ -14,17 +13,15 @@ def runner() -> CliRunner:
     return CliRunner()
 
 
-@pytest.fixture
-def mock_renderer_execute(mocker: MockFixture) -> Mock:
-    """Fixture to mock the renderer class."""
-    return mocker.patch("mako2cli.Renderer.execute")
-
-
-def test_main(runner: CliRunner, mock_renderer_execute: Mock) -> None:
-    """It exits with 0 code and without generating an output due to the mocked class."""
+def test_main(
+    runner: CliRunner, template_file: Path, data_file: Path, template_rendered: str
+) -> None:
+    """It exits with 0 code and check generation executed."""
+    output_file = Path("/output")
     result = runner.invoke(
-        cli.main, ["-t", "template.mako", "-d", "data.yaml", "-o", "outputfile"]
+        cli.main,
+        ["-t", str(template_file), "-d", str(data_file), "-o", str(output_file)],
     )
     assert result.exit_code == 0
     assert result.output == ""
-    assert mock_renderer_execute.called
+    assert output_file.open().read() == template_rendered
