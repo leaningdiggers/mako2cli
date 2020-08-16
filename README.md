@@ -1,3 +1,5 @@
+[![Tests](https://github.com/leaningdiggers/mako2cli/workflows/Tests/badge.svg)](https://github.com/leaningdiggers/mako2cli/actions?workflow=Tests)
+
 # mako2cli
 
 This project aims to port Mako Template to a simple usage on command line
