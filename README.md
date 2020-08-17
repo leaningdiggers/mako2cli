@@ -5,11 +5,11 @@
 
 This project aims to port Mako Template to a simple usage on command line
 
-## Install
+## Installation
 
-Prerequisite: install [poetry](https://python-poetry.org/)
+To install the mako2cli Python project,
+run this command in your terminal:
 
-Install:
-* clone the repo
-* execute poetry build
-* pip install the dist/*.tar.gz in a virtual environment
+```
+$ pip install mako2cli
+```
