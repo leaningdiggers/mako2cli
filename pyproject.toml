@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mako2cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "Mako Template Command-Line Tool"
 authors = ["fbagagli <francesco.bagagli@gmail.com>"]
 license = "MIT"
