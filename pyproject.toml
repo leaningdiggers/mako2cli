@@ -39,6 +39,7 @@ darglint = "^1.5.2"
 xdoctest = "^0.13.0"
 sphinx = "^3.2.1"
 sphinx-autodoc-typehints = "^1.11.0"
+codecov = "^2.1.8"
 
 [tool.poetry.scripts]
 m2cli = "mako2cli.cli:main"
