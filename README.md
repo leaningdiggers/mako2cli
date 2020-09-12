@@ -15,3 +15,31 @@ run this command in your terminal:
 ```
 $ pip install mako2cli
 ```
+
+## Example
+
+Create a file `template.mako` containing:
+
+```mako
+hello ${name}!
+```
+
+And a data file `data.yaml`:
+
+```yaml
+name: world
+```
+
+Now you can render the file with:
+
+```bash
+$ m2cli -t template.mako -d data.yaml -o rendered
+```
+
+The output is saved to `rendered`:
+
+```
+hello world!
+```
+
+That's all!
